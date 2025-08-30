@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -25,7 +26,12 @@ public class FirebaseAuthenticationFilter implements Filter {
             try {
                 decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
             } catch (FirebaseAuthException e) {
-                throw new RuntimeException(e);
+                System.out.println("MESSAGE " + e.getMessage());
+                servletResponse.setContentType("application/json");
+                ((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                servletResponse.getWriter().write("{\"error\": \"Invalid or expired Firebase token.\"}");
+                return;
+//                throw new RuntimeException(e);
             }
             // Represent the authenticated user with spring security
             System.out.println(decodedToken.getUid());

@@ -1,7 +1,8 @@
 package com.ekibiina.ekibiina.api.service;
 
 import com.ekibiina.ekibiina.api.entities.Role;
-import com.ekibiina.ekibiina.api.entities.UserEntity;
+import com.ekibiina.ekibiina.api.entities.Sacco;
+import com.ekibiina.ekibiina.api.entities.User;
 import com.ekibiina.ekibiina.api.repository.RoleRepository;
 import com.ekibiina.ekibiina.api.repository.UserRepository;
 import com.google.firebase.auth.ExportedUserRecord;
@@ -27,17 +28,22 @@ public class FirebaseUserService {
                 .setDisplayName(displayName);
 
         var firebaseUser =  FirebaseAuth.getInstance().createUser(request);
+        System.out.println("Created user: " + firebaseUser.getUid());
         // Fetch roles from the database
         Set<Role> roles = roleRepository.findByNameIn(roleNames);
+
+        System.out.println(roles);
         // Create a new user
-        UserEntity newUser = new UserEntity();
-        newUser.setUuid(firebaseUser.getUid());
-        newUser.setEmail(email);
+        User newUser = new User();
+        newUser.setFirebaseUid(firebaseUser.getUid());
+        newUser.setUsername(email);
         newUser.setName(displayName);
+        newUser.setFirebaseUid(firebaseUser.getUid());
         newUser.setRoles(roles);
         userRepository.save(newUser);
 
         return FirebaseAuth.getInstance().createUser(request);
+
     }
 
     public UserRecord getUserByEmail(String email) throws Exception {
