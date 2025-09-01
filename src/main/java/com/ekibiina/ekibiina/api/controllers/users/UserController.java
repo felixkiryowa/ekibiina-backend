@@ -27,7 +27,6 @@ public class UserController {
     @PostMapping("/create")
     public UserRecord createUser(@RequestBody UserCmd.Req req) throws Exception {
         System.out.println("REQUEST " + req);
-      return  firebaseUserService.createUser(req.email(), req.password(),
-              req.displayName(), req.roleNames());
+      return  firebaseUserService.createUser(req);
     }
 }

@@ -31,7 +31,6 @@ public class FirebaseAuthenticationFilter implements Filter {
                 ((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 servletResponse.getWriter().write("{\"error\": \"Invalid or expired Firebase token.\"}");
                 return;
-//                throw new RuntimeException(e);
             }
             // Represent the authenticated user with spring security
             System.out.println(decodedToken.getUid());

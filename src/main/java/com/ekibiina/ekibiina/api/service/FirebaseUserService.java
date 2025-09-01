@@ -1,14 +1,13 @@
 package com.ekibiina.ekibiina.api.service;
 
+import com.ekibiina.ekibiina.api.controllers.users.data.UserCmd;
 import com.ekibiina.ekibiina.api.entities.Role;
 import com.ekibiina.ekibiina.api.entities.Sacco;
 import com.ekibiina.ekibiina.api.entities.User;
 import com.ekibiina.ekibiina.api.repository.RoleRepository;
 import com.ekibiina.ekibiina.api.repository.UserRepository;
-import com.google.firebase.auth.ExportedUserRecord;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseToken;
-import com.google.firebase.auth.UserRecord;
+import com.ekibiina.ekibiina.exceptions.BusinessException;
+import com.google.firebase.auth.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,28 +20,35 @@ public class FirebaseUserService {
     UserRepository userRepository;
     @Autowired RoleRepository roleRepository;
 
-    public UserRecord createUser(String email, String password, String displayName, Set<String> roleNames) throws Exception {
+    public UserRecord createUser(UserCmd.Req req) throws Exception {
+        System.out.println("Creating user with email: " + req.email() + ", displayName: " + req.displayName() + ", roles: " + req.roleNames());
         UserRecord.CreateRequest request = new UserRecord.CreateRequest()
-                .setEmail(email)
-                .setPassword(password)
-                .setDisplayName(displayName);
+                .setEmail(req.email())
+                .setPassword(req.password())
+                .setDisplayName(req.displayName());
 
-        var firebaseUser =  FirebaseAuth.getInstance().createUser(request);
+        UserRecord firebaseUser = null;
+        try {
+            firebaseUser = FirebaseAuth.getInstance().createUser(request);
+        } catch (FirebaseAuthException e) {
+            System.out.println("Error creating user: " + e.getMessage());
+            throw new BusinessException(e.getErrorCode(), "FIREBASE_USER_CREATION_FAILED", "Error creating user: " + e.getMessage());
+        }
         System.out.println("Created user: " + firebaseUser.getUid());
         // Fetch roles from the database
-        Set<Role> roles = roleRepository.findByNameIn(roleNames);
+        Set<Role> roles = roleRepository.findByNameIn(req.roleNames());
 
         System.out.println(roles);
         // Create a new user
         User newUser = new User();
         newUser.setFirebaseUid(firebaseUser.getUid());
-        newUser.setUsername(email);
-        newUser.setName(displayName);
+        newUser.setUsername(req.email());
+        newUser.setName(req.displayName());
         newUser.setFirebaseUid(firebaseUser.getUid());
         newUser.setRoles(roles);
         userRepository.save(newUser);
 
-        return FirebaseAuth.getInstance().createUser(request);
+        return  FirebaseAuth.getInstance().getUser(firebaseUser.getUid());
 
     }
 
