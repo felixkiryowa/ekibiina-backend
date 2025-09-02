@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/members")
@@ -30,5 +31,17 @@ public class MemberController {
     @GetMapping("/count")
     public Long getTotalMembers() {
         return memberRepository.count();
+    }
+
+    //Get a Single Member by memberId
+    @GetMapping("/{memberId}")
+    public Optional<Member> getMemberById(@PathVariable Long memberId) {
+        return memberRepository.findById(memberId);
+    }
+
+    // Get Total Members by Sacco_id
+    @GetMapping("/count/sacco/{saccoId}")
+    public Long getTotalMembersBySacco(@PathVariable Long saccoId) {
+        return memberRepository.countBySaccoId(saccoId);
     }
 }
