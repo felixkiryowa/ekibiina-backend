@@ -158,115 +158,115 @@
                 referencedColumnNames="id"/>
     </changeSet>
 
-    <changeSet id="009" author="nakato">
-        <createTable tableName="balances">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="transaction_id" type="BIGINT"/>
-            <column name="balance" type="DECIMAL(18,2)"/>
-            <column name="created_at" type="TIMESTAMP"/>
-            <column name="updated_at" type="TIMESTAMP"/>
-        </createTable>
+<!--    <changeSet id="009" author="nakato">-->
+<!--        <createTable tableName="balances">-->
+<!--            <column name="id" type="BIGINT" autoIncrement="true">-->
+<!--                <constraints primaryKey="true" nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="transaction_id" type="BIGINT"/>-->
+<!--            <column name="balance" type="DECIMAL(18,2)"/>-->
+<!--            <column name="created_at" type="TIMESTAMP"/>-->
+<!--            <column name="updated_at" type="TIMESTAMP"/>-->
+<!--        </createTable>-->
 
-        <addForeignKeyConstraint baseTableName="balances"
-                                 baseColumnNames="transaction_id"
-                                 referencedTableName="transactions"
-                                 referencedColumnNames="id"
-                                 constraintName="fk_balances_transaction"/>
-    </changeSet>
+<!--        <addForeignKeyConstraint baseTableName="balances"-->
+<!--                                 baseColumnNames="transaction_id"-->
+<!--                                 referencedTableName="transactions"-->
+<!--                                 referencedColumnNames="id"-->
+<!--                                 constraintName="fk_balances_transaction"/>-->
+<!--    </changeSet>-->
 
-    <changeSet id="010" author="nakato">
-        <createTable tableName="savings">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="interest_rate" type="DECIMAL(5,2)"/>
-            <column name="amount" type="DECIMAL(18,2)"/>
-            <column name="maturity_date" type="TIMESTAMP"/>
-            <column name="status" type="VARCHAR(50)"/>
-            <column name="sacco_id" type="BIGINT"/>
-            <column name="member_id" type="BIGINT"/>
-            <column name="saving_type" type="VARCHAR(50)"/>
-            <column name="created_at" type="TIMESTAMP"/>
-            <column name="updated_at" type="TIMESTAMP"/>
-        </createTable>
+<!--    <changeSet id="010" author="nakato">-->
+<!--        <createTable tableName="savings">-->
+<!--            <column name="id" type="BIGINT" autoIncrement="true">-->
+<!--                <constraints primaryKey="true" nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="interest_rate" type="DECIMAL(5,2)"/>-->
+<!--            <column name="amount" type="DECIMAL(18,2)"/>-->
+<!--            <column name="maturity_date" type="TIMESTAMP"/>-->
+<!--            <column name="status" type="VARCHAR(50)"/>-->
+<!--            <column name="sacco_id" type="BIGINT"/>-->
+<!--            <column name="member_id" type="BIGINT"/>-->
+<!--            <column name="saving_type" type="VARCHAR(50)"/>-->
+<!--            <column name="created_at" type="TIMESTAMP"/>-->
+<!--            <column name="updated_at" type="TIMESTAMP"/>-->
+<!--        </createTable>-->
 
-        <addForeignKeyConstraint baseTableName="savings"
-                                 baseColumnNames="sacco_id"
-                                 referencedTableName="saccos"
-                                 referencedColumnNames="id"
-                                 constraintName="fk_savings_sacco"/>
+<!--        <addForeignKeyConstraint baseTableName="savings"-->
+<!--                                 baseColumnNames="sacco_id"-->
+<!--                                 referencedTableName="saccos"-->
+<!--                                 referencedColumnNames="id"-->
+<!--                                 constraintName="fk_savings_sacco"/>-->
 
-        <addForeignKeyConstraint baseTableName="savings"
-                                 baseColumnNames="member_id"
-                                 referencedTableName="members"
-                                 referencedColumnNames="member_id"
-                                 constraintName="fk_savings_member"/>
-    </changeSet>
+<!--        <addForeignKeyConstraint baseTableName="savings"-->
+<!--                                 baseColumnNames="member_id"-->
+<!--                                 referencedTableName="members"-->
+<!--                                 referencedColumnNames="member_id"-->
+<!--                                 constraintName="fk_savings_member"/>-->
+<!--    </changeSet>-->
 
-    <changeSet id="011" author="nakato">
-        <createTable tableName="transactions">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="amount" type="DECIMAL(18,2)"/>
-            <column name="tran_description" type="VARCHAR(255)"/>
-            <column name="transaction_type" type="VARCHAR(50)"/>
-            <column name="narrations" type="VARCHAR(255)"/>
-            <column name="reference" type="VARCHAR(100)"/>
-            <column name="transaction_reference" type="VARCHAR(100)"/>
-            <column name="gateway_status" type="VARCHAR(50)"/>
-            <column name="payment_method" type="VARCHAR(50)"/>
-            <column name="currency" type="VARCHAR(10)"/>
-            <column name="transaction_status" type="VARCHAR(50)"/>
-            <column name="created_at" type="TIMESTAMP"/>
-            <column name="updated_at" type="TIMESTAMP"/>
-            <column name="sacco_id" type="BIGINT"/>
-            <column name="account_id" type="BIGINT"/>
-        </createTable>
+<!--    <changeSet id="011" author="nakato">-->
+<!--        <createTable tableName="transactions">-->
+<!--            <column name="id" type="BIGINT" autoIncrement="true">-->
+<!--                <constraints primaryKey="true" nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="amount" type="DECIMAL(18,2)"/>-->
+<!--            <column name="tran_description" type="VARCHAR(255)"/>-->
+<!--            <column name="transaction_type" type="VARCHAR(50)"/>-->
+<!--            <column name="narrations" type="VARCHAR(255)"/>-->
+<!--            <column name="reference" type="VARCHAR(100)"/>-->
+<!--            <column name="transaction_reference" type="VARCHAR(100)"/>-->
+<!--            <column name="gateway_status" type="VARCHAR(50)"/>-->
+<!--            <column name="payment_method" type="VARCHAR(50)"/>-->
+<!--            <column name="currency" type="VARCHAR(10)"/>-->
+<!--            <column name="transaction_status" type="VARCHAR(50)"/>-->
+<!--            <column name="created_at" type="TIMESTAMP"/>-->
+<!--            <column name="updated_at" type="TIMESTAMP"/>-->
+<!--            <column name="sacco_id" type="BIGINT"/>-->
+<!--            <column name="account_id" type="BIGINT"/>-->
+<!--        </createTable>-->
 
-        <addForeignKeyConstraint baseTableName="transactions"
-                                 baseColumnNames="sacco_id"
-                                 referencedTableName="saccos"
-                                 referencedColumnNames="id"
-                                 constraintName="fk_transactions_sacco"/>
+<!--        <addForeignKeyConstraint baseTableName="transactions"-->
+<!--                                 baseColumnNames="sacco_id"-->
+<!--                                 referencedTableName="saccos"-->
+<!--                                 referencedColumnNames="id"-->
+<!--                                 constraintName="fk_transactions_sacco"/>-->
 
-        <addForeignKeyConstraint baseTableName="transactions"
-                                 baseColumnNames="account_id"
-                                 referencedTableName="accounts"
-                                 referencedColumnNames="id"
-                                 constraintName="fk_transactions_account"/>
-    </changeSet>
+<!--        <addForeignKeyConstraint baseTableName="transactions"-->
+<!--                                 baseColumnNames="account_id"-->
+<!--                                 referencedTableName="accounts"-->
+<!--                                 referencedColumnNames="id"-->
+<!--                                 constraintName="fk_transactions_account"/>-->
+<!--    </changeSet>-->
 
-    <changeSet id="012" author="nakato">
-        <createTable tableName="accounts">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="minimum_membership_period" type="INT"/>
-            <column name="account_number" type="VARCHAR(50)"/>
-            <column name="account_type" type="VARCHAR(50)"/>
-            <column name="payment_integration" type="VARCHAR(50)"/>
-            <column name="balance" type="DECIMAL(18,2)" defaultValueNumeric="0.0"/>
-            <column name="status" type="VARCHAR(50)"/>
-            <column name="created_at" type="TIMESTAMP"/>
-            <column name="updated_at" type="TIMESTAMP"/>
-            <column name="sacco_id" type="BIGINT"/>
-            <column name="member_id" type="BIGINT"/>
-        </createTable>
+<!--    <changeSet id="012" author="nakato">-->
+<!--        <createTable tableName="accounts">-->
+<!--            <column name="id" type="BIGINT" autoIncrement="true">-->
+<!--                <constraints primaryKey="true" nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="minimum_membership_period" type="INT"/>-->
+<!--            <column name="account_number" type="VARCHAR(50)"/>-->
+<!--            <column name="account_type" type="VARCHAR(50)"/>-->
+<!--            <column name="payment_integration" type="VARCHAR(50)"/>-->
+<!--            <column name="balance" type="DECIMAL(18,2)" defaultValueNumeric="0.0"/>-->
+<!--            <column name="status" type="VARCHAR(50)"/>-->
+<!--            <column name="created_at" type="TIMESTAMP"/>-->
+<!--            <column name="updated_at" type="TIMESTAMP"/>-->
+<!--            <column name="sacco_id" type="BIGINT"/>-->
+<!--            <column name="member_id" type="BIGINT"/>-->
+<!--        </createTable>-->
 
-        <addForeignKeyConstraint baseTableName="accounts"
-                                 baseColumnNames="sacco_id"
-                                 referencedTableName="saccos"
-                                 referencedColumnNames="id"
-                                 constraintName="fk_accounts_sacco"/>
+<!--        <addForeignKeyConstraint baseTableName="accounts"-->
+<!--                                 baseColumnNames="sacco_id"-->
+<!--                                 referencedTableName="saccos"-->
+<!--                                 referencedColumnNames="id"-->
+<!--                                 constraintName="fk_accounts_sacco"/>-->
 
-        <addForeignKeyConstraint baseTableName="accounts"
-                                 baseColumnNames="member_id"
-                                 referencedTableName="members"
-                                 referencedColumnNames="member_id"
-                                 constraintName="fk_accounts_member"/>
-    </changeSet>
+<!--        <addForeignKeyConstraint baseTableName="accounts"-->
+<!--                                 baseColumnNames="member_id"-->
+<!--                                 referencedTableName="members"-->
+<!--                                 referencedColumnNames="member_id"-->
+<!--                                 constraintName="fk_accounts_member"/>-->
+<!--    </changeSet>-->
 
 </databaseChangeLog>
